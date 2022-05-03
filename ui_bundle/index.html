@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create Tasks</title>
+	<meta charset="utf-8">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<script src="/plugins/jquery/jquery.min.js"></script>
+	<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/plugins/select2/js/select2.full.min.js"></script>
+	<script src="/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+	<script src="/plugins/moment/moment.min.js"></script>
+	<script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+	<script src="/plugins/daterangepicker/daterangepicker.js"></script>
+	<script src="/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+	<script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+	<script src="/dist/js/adminlte.min.js"></script>
+	<script src="/dist/js/demo.js"></script>
+	<script  src="/js/common.js"></script>
+	<script  src="/js/save-tasks.js"></script>
+	<script  src="/js/tasks.js"></script>
+	<script  src="/js/delete-tasks.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-messaging.js"></script>
+	<script src="app.js"></script>
+	
+
+	<link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+	<link rel="stylesheet" href="/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+	<link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+	<link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+	<link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+	<link rel="stylesheet" href="/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+	<link rel="stylesheet" href="/dist/css/adminlte.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+	<link rel="stylesheet" href="/css/custom-styles.css">		
+
+		
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+
+
+	<nav class="main-header navbar navbar-expand navbar-gray navbar-light remove-margin-left">
+    	<ul class="navbar-nav">
+      		<li class="nav-item">
+        		<div class="nav-link" data-widget="" role="button"></div>
+      		</li>
+    	</ul>
+  	</nav>
+
+<div class="content-wrapper remove-margin-left" style="min-height: 280px;">
+    <div class="content-header">
+      
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <section class="col-lg-12 connectedSortable ui-sortable">
+          	<div class="card direct-chat direct-chat-primary">
+              <div class="card-body">
+                <div class="direct-chat-messages" style="height:650px;">
+                  <div class="direct-chat-msg right">
+                    <div class="container">
+				    	<!-- <div class="form-group col-lg-4">
+		                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
+        		                <label class="col-sm-2  large-font">Date</label>
+               			        <input type="text" class="form-control datepicker-input display-inline col-md-4" id="selectDate" placeholder="MM/DD/YYYY" data-target="#reservationdate" value="">
+                        		<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                            		<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        		</div>
+                    		</div>
+            			</div> -->
+            			<div class="card-header border-transparent">
+            			
+            				<ul class="nav nav-pills">
+			                  <li class="nav-item"><a class="nav-link" href="#enterTasks" data-toggle="tab">Enter Tasks</a></li>
+			                  <!-- <li class="nav-item"><a class="nav-link active" href="#uploadTasks" data-toggle="tab">Upload Tasks</a></li> -->
+			                </ul>
+            			
+            				<!-- <label class="col-form-label large-font col-md-2">Enter Tasks</label>
+            				<div class="vl display-inline"></div> -->
+            				<hr>
+            			</div>
+						<div class="tab-content">	
+							<div class="taskDiv active tab-pane" id="enterTasks">	 
+								<div id="taskSubDiv">
+				    				<label class="col-form-label col-md-5">Task Description&nbsp;&nbsp;</label>
+						
+						    		<label class="col-form-label col-md-3">&nbsp;&nbsp;Start Time&nbsp;&nbsp;</label>
+			
+				      				<label class="col-form-label col-md-3">&nbsp;&nbsp;End Time&nbsp;&nbsp;</label>
+				      			</div>   
+				    			<div id="taskSubDiv">
+				    				<!-- <label class="col-form-label large-font">Task Description&nbsp;&nbsp;</label> -->
+		    						<input class="taskDesc form-control col-md-5 display-inline" id="taskDescId" type="text" placeholder="Enter Task" name="taskDesc" value="" required>
+						
+						    		<!-- <label class="col-form-label large-font">&nbsp;&nbsp;Start Time&nbsp;&nbsp;</label> -->
+		    						<input class="startTime form-control col-md-3 display-inline" id="startTimeId" type="datetime-local" name="startTime" value="" required>
+			
+				      				<!-- <label class="col-form-label large-font">&nbsp;&nbsp;End Time&nbsp;&nbsp;</label> -->
+				      				<input class="endTime form-control col-md-3 display-inline" id="endTimeId" type="datetime-local" name="endTime" value=""  required>
+				      				<button class="addButton btn btn-secondary" id="addTasksButton"><i class="fa fa-plus"></i></button>
+				      			</div>
+			    			</div>
+			    			<!-- <div class="tab-pane active col-md-12" id="uploadTasks">
+									<div class="input-group col-md-6">
+										<label class="col-form-label col-md-2">Upload</label>
+				                      <div class="custom-file">
+				                        <input type="file" class="custom-file-input fileUpload" id="exampleInputFile">
+				                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+				                      </div>
+				                      <div class="input-group-append">
+				                        <span class="input-group-text" id="" onclick="uploadTaskFile()">Upload</span>
+				                      </div>
+				                      <a class="col-form-label downloadTemplate" href="${pageContext.request.contextPath}/resources/documents/Task_Template.xlsx">&nbsp;&nbsp;Download Template</a>
+				                    </div>
+				                    
+							</div> -->
+			    		</div>
+		    			<hr>
+		    			
+		    			<div class="container-fluid noData">
+		    				<label class="noData">No Tasks Saved</label>
+		    			</div>
+		    			
+		    			<div class="container-fluid tableData">
+        					<div class="row">
+          						<section class="col-lg-12 connectedSortable ui-sortable">
+              							<div class="card-body">
+                							<div class="direct-chat-messages" style="height:450px;">
+                  								<div class="direct-chat-msg right">
+                    								<div class="container">
+												        <table id="example1 tasksTable" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+											                 <thead>
+												                 <tr role="row">
+												                 	<th>Tasks</th>
+												                 	<th>Start Time</th>
+												                 	<th>End Time</th>
+												                 	<th></th>
+												                 </tr>
+											                 </thead>
+											                 <tbody id="tableBody">
+											                 </tbody>
+											             </table>
+													</div>
+     											</div>
+   											</div>
+  										</div>
+			      					<br>
+	      							<!-- <button type="submit" class="btn btn-primary display-right" onClick="saveTasks()" id="saveButton">Save</button> -->
+	 							</section>
+	 						</div>
+                 		</div>
+             		</div>
+   				</div>
+   			</div>
+   		</div>
+   	</div>
+</section>
+</div>
+</div>
+</section>
+    
+<!-- <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <section class="col-lg-12 connectedSortable ui-sortable">
+           
+
+            <div class="card direct-chat direct-chat-primary">
+             
+              <div class="card-body">
+                <div class="direct-chat-messages">
+                  
+                  <div class="direct-chat-msg right">
+                    <div class="container">
+	    	
+	     
+	        <table id="example1 tasksTable" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+                 <thead>
+	                 <tr role="row">
+	                 	<th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Tasks</th>
+	                 	<th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Start Time</th>
+	                 	<th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">End Time</th>
+	                 	<th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending"></th>
+	                 </tr>
+                 </thead>
+                 <tbody id="tableBody">
+                 
+                 </tbody>
+                 
+             </table>
+	
+	 	</div>
+     </div>
+                  
+   </div>
+                
+  </div>
+              
+</div>
+
+</section>
+          
+         
+          
+</div>
+</div>
+</section> -->
+</div>
+</div>
+
+</body>
+</html>
